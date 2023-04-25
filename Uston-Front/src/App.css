@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+td{
+    @apply p-2;
+}
+tbody tr{
+    @apply hover:bg-cst-darkgray-700 active:bg-cst-darkgray-800 cursor-pointer;
+}
+thead{
+    @apply font-semibold bg-cst-darkgray-800;
+}
+tbody{
+    @apply bg-cst-darkgray-900;
+}
+table{
+    @apply m-3 text-sm;
+}
+
+.paginator{
+    @apply flex w-full justify-center;
+}
+.paginator ul{
+    @apply bg-cst-darkgray-700 rounded-md;
+}
+.paginator ul li{
+    @apply flex ;
+}
+.paginator ul li a{
+    @apply p-2 hover:bg-btn-hover active:bg-cst-darkgray-800;
+}
+.paginator ul li:first-child a{
+    @apply rounded-l-md;
+}
+.paginator ul li:last-child a{
+    @apply rounded-r-md;
+}
+
+.RichEditor-hidePlaceholder .public-DraftEditorPlaceholder-root {
+    @apply hidden;
+}

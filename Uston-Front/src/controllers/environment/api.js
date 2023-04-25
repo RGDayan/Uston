@@ -1,0 +1,1 @@
+export const adresse_api = "http://192.168.1.20:8000/api"

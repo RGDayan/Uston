@@ -1,0 +1,31 @@
+FROM php:8.2.1-fpm-alpine
+
+## Install system dependencies
+RUN apk update && \
+    apk add --no-cache --virtual dev-deps git composer autoconf gcc g++ make imagemagick-dev libtool \
+        php-xml php-ctype php-tokenizer php-dom php-session && \
+    apk add --no-cache zlib-dev libzip-dev
+
+## Install php extensions
+RUN docker-php-ext-install pdo_mysql zip
+
+WORKDIR /app
+RUN chown www-data:www-data /app
+
+USER www-data
+
+## Copy project files to workdir
+COPY --chown=www-data:www-data . .
+
+## Install application dependencies
+RUN composer -v && composer install --no-dev --no-interaction --optimize-autoloader
+
+USER root
+
+## Cleanup
+RUN apk del dev-deps && \
+    apk del composer && \
+    rm -rf /tmp/* && \
+    rm -rf /var/cache/apk/*
+
+CMD sh docker.sh
