@@ -10,7 +10,7 @@ export default function IndexRecits({projet, recits}){
             {
                 recits.map((recit) => {
                     return <NavBtn key={recit.id}
-                                   url={"/index-projets/show-projet/" + projet.id + "/index-recits/" + recit.id}
+                                   url={"/index-projets/show-projet/" + projet.id + "/index-recits/" + recit.id + "/resume"}
                                    text={recit.titre}
                                    padding={"p-1 pl-2"}/>
                 })

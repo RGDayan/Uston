@@ -10,7 +10,7 @@ export default function TextArea({id, flexDir = "", name, value, size, label, on
             <Label text={label} width={"w-fit min-w-32"}/>
             <textarea id={"textarea-"+id}
                       name={name}
-                      defaultValue={value}
+                      value={value}
                       className={
                           "p-1 pl-2 " +
                           "bg-input-txt border-2 border-border " +

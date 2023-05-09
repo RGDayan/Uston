@@ -62,7 +62,7 @@ export default function RecitsProjet(){
                 <ReloadIndex setReload={setRecitsReload} url={"/index-projets/show-projet/" + projet.id + "/index-recits"}/>
             </nav>
 
-            <Outlet context={[submit, setRecitsReload]}/>
+            <Outlet context={[setRecitsReload]}/>
         </div>
     )
 }

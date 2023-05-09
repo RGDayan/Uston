@@ -1,0 +1,62 @@
+version : '3.7'
+
+services:
+  db:
+    image: mariadb:latest
+    container_name: db
+    environment:
+      - MARIADB_ROOT_PASSWORD=root
+      - MARIADB_DATABASE=uston_dev
+      - MARIADB_USER=rgdayan
+      - MARIADB_PASSWORD=rgdayan
+    volumes:
+      - db-data:/var/lib/mariadb
+    networks:
+      - uston-network
+
+  php-fpm:
+    container_name: php-fpm
+    build:
+      context: ./Uston-Back
+      dockerfile: symfony-dockerfile
+    ports:
+      - "9000:9000"
+    depends_on:
+      - db
+    networks:
+      - uston-network
+
+  nginx-back:
+    container_name: nginx-back
+    hostname: nginx-back
+    build:
+      context: ./Uston-Back
+      dockerfile: nginx-dockerfile
+    ports:
+      - "8000:80"
+      - "8443:443"
+    depends_on:
+      - php-fpm
+    networks:
+      - uston-network
+    extra_hosts:
+      - "nginx-back:172.18.0.4"
+
+  nginx-front:
+    container_name: nginx-front
+    build:
+      context: ./Uston-Front
+    ports:
+      - "8080:80"
+    depends_on:
+      - nginx-back
+    networks:
+      - uston-network
+
+networks:
+  uston-network:
+    driver: bridge
+
+volumes:
+  db-data:
+    driver: local

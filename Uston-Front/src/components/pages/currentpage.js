@@ -10,6 +10,8 @@ import RecitsProjet from "./recit/recitsprojet";
 import ShowRecit from "./recit/showrecit";
 import SuggestionsProjet from "./suggestion/suggestionsprojet";
 import ShowSuggestion from "./suggestion/showsuggestion";
+import ResumeRecit from "./recit/resumerecit";
+import IndexEtapes from "../assets/navigation/etapes/indexetapes";
 
 export default function CurrentPage(){
     return (
@@ -29,7 +31,10 @@ export default function CurrentPage(){
                     <Route path={"/index-projets/show-projet/:idProjet"} element={<ShowProjet />}>
                         <Route path={"/index-projets/show-projet/:idProjet/resume"} element={<ResumeProjet />} />
                         <Route path={"/index-projets/show-projet/:idProjet/index-recits"} element={<RecitsProjet />} >
-                            <Route path={"/index-projets/show-projet/:idProjet/index-recits/:idRecit"} element={<ShowRecit />} />
+                            <Route path={"/index-projets/show-projet/:idProjet/index-recits/:idRecit"} element={<ShowRecit />} >
+                                <Route path={"/index-projets/show-projet/:idProjet/index-recits/:idRecit/resume"} element={<ResumeRecit />} />
+                                <Route path={"/index-projets/show-projet/:idProjet/index-recits/:idRecit/etapes"} element={<IndexEtapes />} />
+                            </Route>
                         </Route>
                         <Route path={"/index-projets/show-projet/:idProjet/index-suggestions"} element={<SuggestionsProjet />} />
                         <Route path={"/index-projets/show-projet/:idProjet/index-suggestions/:idSuggestion"} element={<ShowSuggestion />}/>
