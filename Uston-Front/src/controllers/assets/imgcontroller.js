@@ -8,11 +8,12 @@ import user_story64 from "../../resources/user_story/user_story64.png";
 import suggestion_dark16 from "../../resources/suggestion/suggestion_dark16.png";
 import suggestion_dark32 from "../../resources/suggestion/suggestion_dark32.png";
 import suggestion_dark64 from "../../resources/suggestion/suggestion_dark64.png";
-import logo_uston from "../../resources/logo/logo_uston.png"
-import logo_sans_font from "../../resources/logo/logo_sans_font.png"
-import logo_sans_font16 from "../../resources/logo/logo_sans_font16.png"
-import logo_sans_font32 from "../../resources/logo/logo_sans_font32.png"
-import logo_sans_font64 from "../../resources/logo/logo_sans_font64.png"
+import logo_uston from "../../resources/logo/logo_uston.png";
+import logo_sans_font from "../../resources/logo/logo_sans_font.png";
+import logo_sans_font16 from "../../resources/logo/logo_sans_font16.png";
+import logo_sans_font32 from "../../resources/logo/logo_sans_font32.png";
+import logo_sans_font64 from "../../resources/logo/logo_sans_font64.png";
+import logo_uston_font from "../../resources/logo/logo_uston_font.png";
 import signalement16 from "../../resources/signalement/signalement16.png";
 import signalement32 from "../../resources/signalement/signalement32.png";
 import signalement64 from "../../resources/signalement/signalement64.png";
@@ -60,6 +61,7 @@ const images = {
     logo_sans_font16,
     logo_sans_font32,
     logo_sans_font64,
+    logo_uston_font,
     signalement16,
     signalement32,
     signalement64,

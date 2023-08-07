@@ -1,7 +1,7 @@
 import './App.css';
 import React from 'react';
-import LateralPanel from "./components/assets/navigation/lateralPanel";
-import CurrentPage from "./components/pages/currentpage";
+import Page_principale from "./ui_components/accueil/page_principale";
+import Uston_titre from "./ui_components/accueil/uston_titre";
 
 /**
  * Classe App : Construit la page web et contient les routes de redirections
@@ -11,10 +11,10 @@ import CurrentPage from "./components/pages/currentpage";
 function App() {
     return (
         <div className={
-            "flex " +
-            "h-full "}>
-            <LateralPanel />
-            <CurrentPage />
+            "flex flex-col " +
+            "h-full"}>
+            <Uston_titre/>
+            <Page_principale/>
         </div>
     );
 }
