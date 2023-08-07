@@ -6,13 +6,13 @@ td{
     @apply p-2;
 }
 tbody tr{
-    @apply hover:bg-cst-darkgray-700 active:bg-cst-darkgray-800 cursor-pointer;
+    @apply hover:bg-darkgray-700 active:bg-darkgray-800 cursor-pointer;
 }
 thead{
-    @apply font-semibold bg-cst-darkgray-800;
+    @apply font-semibold bg-darkgray-800;
 }
 tbody{
-    @apply bg-cst-darkgray-900;
+    @apply bg-darkgray-900;
 }
 table{
     @apply m-3 text-sm;
@@ -22,13 +22,13 @@ table{
     @apply flex w-full justify-center;
 }
 .paginator ul{
-    @apply bg-cst-darkgray-700 rounded-md;
+    @apply bg-darkgray-700 rounded-md;
 }
 .paginator ul li{
     @apply flex ;
 }
 .paginator ul li a{
-    @apply p-2 hover:bg-btn-hover active:bg-cst-darkgray-800;
+    @apply p-2 hover:bg-hover active:bg-darkgray-800;
 }
 .paginator ul li:first-child a{
     @apply rounded-l-md;
