@@ -30,8 +30,9 @@ export default function IndexProjets(){
                      "justify-center"}>
                 {
                     projets.map((projet) => {
-                        return <>
-                            <NavLink to={"/index-projets/" + projet.id}
+                        return (
+                            <NavLink key={projet.id}
+                                     to={"/index-projets/" + projet.id}
                                      className={"relative " +
                                         "flex flex-col " +
                                         "min-h-32 w-1/4 min-w-96 " +
@@ -51,7 +52,7 @@ export default function IndexProjets(){
                                     ID : n°{ projet.id}
                                 </p>
                             </NavLink>
-                        </>
+                        )
                     })
                 }
             </div>

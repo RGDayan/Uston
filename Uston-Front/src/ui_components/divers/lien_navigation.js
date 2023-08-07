@@ -7,7 +7,7 @@ export default function LienNavigation({id, lien, contenu, imgSrc, imgFormat, al
         <NavLink id={id}
                 to={lien}
                 className={"p-2 " +
-                    "hover:bg-hover active:bg-select " +
+                    "hover:bg-hover active:bg-select transition duration-150 " +
                     className} >
             <div className={"flex"}>
                 <img src={GetImgByFormat(imgSrc, imgFormat)}
