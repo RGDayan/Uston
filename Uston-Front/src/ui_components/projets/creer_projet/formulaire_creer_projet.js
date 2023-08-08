@@ -5,6 +5,9 @@ import InputTextArea from "../../divers/inputs/input_textarea";
 import BoutonNavigation from "../../divers/bouton_navigation";
 
 export default function FormulaireCreerProjet({projet, setProjet, suivant}){
+
+    // TODO Créer une fonction de validation des champs
+
     return (
         <div id={"formulaire-projet"}
              className={"m-3"}>
@@ -22,7 +25,8 @@ export default function FormulaireCreerProjet({projet, setProjet, suivant}){
                                   contenu={"Suivant"}
                                   className={"w-fit border-b border-darkgray-500"}
                                   onclick={suivant}
-                />
+                                  imgSrc={"forward_arrow"}
+                                  imgFormat={"16"}/>
             </div>
         </div>
     )
