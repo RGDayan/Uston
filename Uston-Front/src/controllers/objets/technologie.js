@@ -10,7 +10,6 @@ export const technologiesTemplate = [{
     Projet: []
 }]
 export const technologieTemplate = {
-    id: 1,
     libelle: "",
     codeCouleur: "#dd0303",
     lienDoc : "",

@@ -40,6 +40,7 @@ class ProjetController extends AbstractController
     public function create(Request $request, SerializerInterface $serializer, EntityManagerInterface $em): JsonResponse
     {
         $projet = $serializer->deserialize($request->getContent(), Projet::class, 'json');
+        $projet->setCreatedAt(new \DateTimeImmutable());
         $em->persist($projet);
         $em->flush();
 

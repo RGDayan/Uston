@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\SerializerInterface;
+use function Webmozart\Assert\Tests\StaticAnalysis\null;
 
 class TechnologieController extends AbstractController
 {
@@ -33,7 +34,10 @@ class TechnologieController extends AbstractController
         $technologie = $serializer->deserialize($request->getContent(), Technologie::class, 'json');
 
         $content = $request->toArray();
-        $technologie->addProjet($projetRepository->find($content['projet_id']));
+        $projet_id = $content['projet_id'];
+        if ($projet_id != 0 && $projet_id != null){
+            $technologie->addProjet($projetRepository->find($content['projet_id']));
+        }
 
         $em->persist($technologie);
         $em->flush();

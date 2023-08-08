@@ -1,6 +1,6 @@
 import React from "react";
 import InputText from "../../divers/inputs/input_text";
-import {handle} from "../../../controllers/form_controller";
+import {handle} from "../../../controllers/assets/form_controller";
 import InputTextArea from "../../divers/inputs/input_textarea";
 import BoutonNavigation from "../../divers/bouton_navigation";
 

@@ -48,6 +48,9 @@ import forward_arrow16 from "../../resources/forward_arrow/forward_arrow16.png";
 import home_dark16 from "../../resources/home/home_dark16.png";
 import home_dark32 from "../../resources/home/home_dark32.png";
 import home_dark64 from "../../resources/home/home_dark64.png";
+import visualize_dark16 from "../../resources/visualize/visualize_dark16.png";
+import visualize_dark32 from "../../resources/visualize/visualize_dark32.png";
+import visualize_dark64 from "../../resources/visualize/visualize_dark64.png";
 
 const images = {
     project16,
@@ -98,7 +101,10 @@ const images = {
     forward_arrow16,
     home_dark16,
     home_dark32,
-    home_dark64
+    home_dark64,
+    visualize_dark16,
+    visualize_dark32,
+    visualize_dark64
 };
 
 /**

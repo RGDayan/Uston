@@ -29,7 +29,7 @@ class CategorieController extends AbstractController
     /**
      * Créer une categorie pour un projet
      */
-    #[Route('/categorie', name: 'categorie_create', methods: 'POST')]
+    #[Route('/categories', name: 'categorie_create', methods: 'POST')]
     public function create(Request $request, SerializerInterface $serializer, EntityManagerInterface $em, ProjetRepository $projetRepository): JsonResponse
     {
         $categorie = $serializer->deserialize($request->getContent(), Categorie::class, 'json');

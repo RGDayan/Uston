@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import InputText from "../../divers/inputs/input_text";
-import {handle} from "../../../controllers/form_controller";
+import {handle} from "../../../controllers/assets/form_controller";
 import ColorPicker from "../../divers/inputs/color_picker";
 import {categorieTemplate} from "../../../controllers/objets/categorie";
 import BoutonNavigation from "../../divers/bouton_navigation";
@@ -10,9 +10,9 @@ export default function FormulaireAjouterCategorie({setCategories, suivant}){
     const pickerId = "codeCouleur-categorie";
 
     function ajouterCategorie() {
-        setCategories((prev) => [...prev, [{
+        setCategories((prev) => [...prev,
             categorie
-        }]]);
+        ]);
 
         let picker = document.getElementById("color-picker-" + pickerId);
         picker.classList.add("hidden");
