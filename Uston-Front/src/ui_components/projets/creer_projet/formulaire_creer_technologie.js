@@ -5,28 +5,26 @@ import {handle} from "../../../controllers/assets/form_controller";
 import ColorPicker from "../../divers/inputs/color_picker";
 import {technologieTemplate} from "../../../controllers/objets/technologie";
 import BoutonNavigation from "../../divers/bouton_navigation";
-import {adresse_api} from "../../../controllers/environment/api";
 
 export default function FormulaireCreerTechnologie({setReloadListe, toggleVisibilite}){
     const [technologie, setTechnologie] = useState(technologieTemplate);
     const pickerId = "technologie";
 
     function creerTechnologie(){
-        fetch(adresse_api + "/technologies", {
+        fetch(process.env.REACT_APP_URL_API + "/technologies", {
             method: "POST",
             body: JSON.stringify(technologie)
         })
-            .then((res) => {
-                console.log(res.json())
-            })
+
+        // TODO Notifier l'appel grâce au retour de l'API create_technologie
+
+        setReloadListe((prev) => !prev);
         annulerTechnologie()
     }
 
     function annulerTechnologie(){
-        setReloadListe((prev) => !prev);
         setTechnologie(technologieTemplate);
         toggleVisibilite((prev) => !prev);
-
     }
 
     return (

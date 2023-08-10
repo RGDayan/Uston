@@ -6,7 +6,8 @@ import CreerProjet from "../projets/creer_projet/creer_projet";
 
 export default function PagePrincipale() {
     return (
-        <main id={"main-page"}>
+        <main id={"main-page"}
+              className={"mt-11"}>
 
             <Routes>
 

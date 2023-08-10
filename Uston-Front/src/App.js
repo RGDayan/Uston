@@ -13,7 +13,8 @@ function App() {
         <div className={
             "flex flex-col " +
             "h-full " +
-            "bg-darkgray-800 text-white"}>
+            "text-white " +
+            "bg-darkgray-800"}>
             <UstonTitre/>
             <PagePrincipale/>
         </div>

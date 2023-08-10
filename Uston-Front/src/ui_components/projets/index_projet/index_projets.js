@@ -1,23 +1,18 @@
 import React, {useEffect, useState} from "react";
-import {adresse_api} from "../../../controllers/environment/api";
 import {NavLink} from "react-router-dom";
 import NavigationIndexProjets from "./navigation_index_projets";
 
 export default function IndexProjets(){
     const [projets, setProjets] = useState([]);
 
-    function getProjets() {
-        fetch(adresse_api + "/projets")
+    useEffect(() => {
+        fetch(process.env.REACT_APP_URL_API + "/projets")
             .then((res) => {
                 return res.json();
             })
             .then((res) => {
-                setProjets(res);
+                setProjets(res)
             })
-    }
-
-    useEffect(() => {
-        getProjets();
     }, []);
 
 

@@ -7,7 +7,7 @@ export default function UstonTitre(){
     let imgLogoSansFont = GetImgByFormat("logo_sans_font", "32");
     return (
         <div id={"uston_title"}
-             className={"flex " +
+             className={"flex fixed z-10 " +
                  "justify-center " +
                  "w-full min-h-8 " +
                  "p-2 bg-darkgray-900"}>

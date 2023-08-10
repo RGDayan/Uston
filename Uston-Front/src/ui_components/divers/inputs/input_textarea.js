@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function InputTextArea({libelle, name, onChange}){
+export default function InputTextArea({libelle, name, onChange, rows=3}){
     return (
         <div className={"flex flex-col"}>
             <label id={"label-" + name}
@@ -8,7 +8,7 @@ export default function InputTextArea({libelle, name, onChange}){
                 {libelle}
             </label>
             <textarea name={name}
-                      rows={3}
+                      rows={rows}
 
                       className={"pl-1 bg-darkgray-700 outline-none"}
                       onChange={onChange}/>
