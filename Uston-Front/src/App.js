@@ -1,7 +1,6 @@
 import './App.css';
 import React from 'react';
-import PagePrincipale from "./ui_components/accueil/page_principale";
-import UstonTitre from "./ui_components/accueil/uston_titre";
+import PagePrincipale from "./composants_ui/page_principale";
 
 /**
  * Classe App : Construit la page web et contient les routes de redirections
@@ -11,12 +10,11 @@ import UstonTitre from "./ui_components/accueil/uston_titre";
 function App() {
     return (
         <div className={
-            "flex flex-col " +
+            "flex " +
             "h-full " +
             "text-white " +
             "bg-darkgray-800"}>
-            <UstonTitre/>
-            <PagePrincipale/>
+            <PagePrincipale />
         </div>
     );
 }
