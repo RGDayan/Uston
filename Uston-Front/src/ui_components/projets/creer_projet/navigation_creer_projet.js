@@ -1,5 +1,5 @@
 import React from "react";
-import BoutonNavigation from "../../divers/bouton_navigation";
+import BoutonNavigation from "../../divers/boutons/bouton_navigation";
 
 export default function NavigationCreerProjet(){
 

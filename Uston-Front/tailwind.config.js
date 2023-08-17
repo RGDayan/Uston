@@ -48,6 +48,12 @@ module.exports = {
         '64': '256px',
         '96': '384px',
       },
+      keyframes: {
+        rotate: {
+          '0%' : { transform: 'rotate(0deg)' },
+          '100%': { transform: 'rotate(360deg)' }
+        },
+      },
     },
   },
   plugins: [],

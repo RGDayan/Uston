@@ -1,63 +1,86 @@
 import React, {useState} from "react";
 import TitreFormulaireCreerProjet from "./titre_formulaire_creer_projet";
-import InputText from "../../divers/inputs/input_text";
-import {handle} from "../../../controllers/assets/form_controller";
 import ColorPicker from "../../divers/inputs/color_picker";
-import {technologieTemplate} from "../../../controllers/objets/technologie";
-import BoutonNavigation from "../../divers/bouton_navigation";
+import BoutonNavigation from "../../divers/boutons/bouton_navigation";
+import {useDispatch, useSelector} from "react-redux";
+import {selectTechnologie} from "../../../redux/selectors";
+import {resetTechnologie, setCodeCouleur, setTechnologie} from "../../../redux/technologies/technologie_slicer";
+import InputText from "../../divers/inputs/input_text";
+import {useMutation} from "react-query";
 
-export default function FormulaireCreerTechnologie({setReloadListe, toggleVisibilite}){
-    const [technologie, setTechnologie] = useState(technologieTemplate);
-    const pickerId = "technologie";
-
-    function creerTechnologie(){
-        fetch(process.env.REACT_APP_URL_API + "/technologies", {
-            method: "POST",
-            body: JSON.stringify(technologie)
+export default function FormulaireCreerTechnologie({setReload}){
+    const technologie = useSelector(selectTechnologie);
+    const dispatch = useDispatch();
+    const mutation = useMutation(
+        "technologie_create",
+        async () => {
+            await fetch(process.env.REACT_APP_URL_API + "/technologies", {
+                method: "POST",
+                body: JSON.stringify(technologie)
+            })
         })
 
-        // TODO Notifier l'appel grâce au retour de l'API create_technologie
+    const [visibility, setVisibility] = useState(false);
 
-        setReloadListe((prev) => !prev);
+    const pickerId = "technologie";
+
+
+    function creerTechnologie(){
+        mutation.mutate()
         annulerTechnologie()
+        setReload((prev) => !prev)
     }
 
     function annulerTechnologie(){
-        setTechnologie(technologieTemplate);
-        toggleVisibilite((prev) => !prev);
+        dispatch(resetTechnologie())
+        toggleVisibility()
     }
 
-    return (
-        <section id={"formulaire-creer-technologie"}>
-            <TitreFormulaireCreerProjet titre={"Créer une nouvelle technologie"}
-                                        messageInfo={"Ajoutez une nouvelle technologie lorsque celle-ci n'existe pas dans la liste."}/>
-            <div className="ml-3">
-                <InputText name={"libelle"}
-                           libelle={"Libellé"}
-                           onChange={(e) => handle(e, technologie, setTechnologie)}/>
-                <InputText name={"lienDoc"}
-                           libelle={"Lien à la documentation"}
-                           onChange={(e) => handle(e, technologie, setTechnologie)}/>
-                <ColorPicker id={pickerId}
-                             name={"codeCouleur"}
-                             label={"Code couleur"}
-                             value={technologie.codeCouleur}
-                             state={technologie}
-                             setState={setTechnologie}/>
-            </div>
+    function toggleVisibility(){
+        setVisibility((prev) => !prev)
+    }
 
-            <div className="flex justify-center">
-                <BoutonNavigation id={"bouton-creer-technologie"}
-                                  contenu={"Valider"}
-                                  className={"w-fit"}
-                                  onclick={creerTechnologie}
-                                  imgSrc={"plus_dark"}
-                                  imgFormat={"16"}/>
-                <BoutonNavigation id={"bouton-annuler-technologie"}
-                                  contenu={"Annuler"}
-                                  className={"w-fit bg-red-600 hover:bg-hover"}
-                                  onclick={annulerTechnologie}/>
-            </div>
-        </section>
-    )
+    return !visibility?
+                <div className={"flex justify-between pl-3"}>
+                    <BoutonNavigation id={"bouton-afficher-formulaire-creer-technologie"}
+                                      contenu={"Créer une nouvelle technologie"}
+                                      className={"w-fit border-b border-darkgray-500"}
+                                      onclick={() => setVisibility((prev) => {return !prev})}
+                                      imgSrc={"visualize_dark"}
+                                      imgFormat={"16"}/>
+                </div>
+                :<section id={"formulaire-creer-technologie"}>
+                        <TitreFormulaireCreerProjet titre={"Créer une nouvelle technologie"}
+                                                    messageInfo={"Ajoutez une nouvelle technologie lorsque celle-ci n'existe pas dans la liste."}/>
+                        <div className="ml-3">
+                            <InputText name={"libelle"}
+                                       libelle={"Libellé"}
+                                       value={technologie.libelle}
+                                       className={"max-w-96"}
+                                       onChange={(e) => {dispatch(setTechnologie(e))}}/>
+                            <InputText name={"lienDoc"}
+                                       libelle={"Lien à la documentation"}
+                                       value={technologie.lienDoc}
+                                       className={"max-w-xl"}
+                                       onChange={(e) => {dispatch(setTechnologie(e))}}/>
+                            <ColorPicker id={pickerId}
+                                         name={"codeCouleur"}
+                                         label={"Code couleur"}
+                                         value={technologie.codeCouleur}
+                                         dispatch={(e) => dispatch(setCodeCouleur(e))}/>
+                        </div>
+
+                        <div className="flex pt-3">
+                            <BoutonNavigation id={"bouton-creer-technologie"}
+                                              contenu={"Valider"}
+                                              className={"w-fit"}
+                                              onclick={creerTechnologie}
+                                              imgSrc={"plus_dark"}
+                                              imgFormat={"16"}/>
+                            <BoutonNavigation id={"bouton-annuler-technologie"}
+                                              contenu={"Annuler"}
+                                              className={"w-fit bg-red-600 hover:bg-hover"}
+                                              onclick={annulerTechnologie}/>
+                        </div>
+                    </section>
 }

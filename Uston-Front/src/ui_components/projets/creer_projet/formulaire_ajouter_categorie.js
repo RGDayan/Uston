@@ -1,20 +1,22 @@
-import React, {useState} from "react";
+import React from "react";
 import InputText from "../../divers/inputs/input_text";
-import {handle} from "../../../controllers/assets/form_controller";
 import ColorPicker from "../../divers/inputs/color_picker";
-import {categorieTemplate} from "../../../controllers/objets/categorie";
-import BoutonNavigation from "../../divers/bouton_navigation";
 import TitreFormulaireCreerProjet from "./titre_formulaire_creer_projet";
+import {useDispatch, useSelector} from "react-redux";
+import {resetCategorie, setCategorie, setCodeCouleur} from "../../../redux/categories/categorie_slicer";
+import {selectCategorie} from "../../../redux/selectors";
+import {ajouterCategorieProjet} from "../../../redux/projets/projet_slicer";
+import BoutonSubmit from "../../divers/boutons/bouton_submit";
 
-export default function FormulaireAjouterCategorie({setProjet}){
-    const [categorie, setCategorie] = useState(categorieTemplate);
+export default function FormulaireAjouterCategorie(){
+    const categorie = useSelector(selectCategorie)
+    const dispatch = useDispatch();
+
     const pickerId = "codeCouleur-categorie";
 
     function ajouterCategorie() {
-        setProjet((prev) => {
-            prev.categories.push(categorie);
-            return prev;
-        });
+        dispatch(ajouterCategorieProjet(categorie))
+        dispatch(resetCategorie())
 
         let picker = document.getElementById("color-picker-" + pickerId);
         picker.classList.add("hidden");
@@ -24,25 +26,26 @@ export default function FormulaireAjouterCategorie({setProjet}){
         <>
             <TitreFormulaireCreerProjet titre={"Créez vos categories"}
                                         messageInfo={"Les catégories sont les fonctionnalités de votre projet. " +
-                                            "\nVous pourrez les utiliser en tant que Tag"}/>
+                                            "Vous pourrez les utiliser en tant que Tag"}/>
             <section id={"formulaire-categories"}
                      className={"p-3"}>
                 <InputText name={"libelle"}
                            libelle={"Libellé"}
-                           onChange={(e) => handle(e, categorie, setCategorie)}/>
+                           value={categorie.libelle}
+                           className={"max-w-96"}
+                           onChange={(e) => dispatch(setCategorie(e))}/>
                 <ColorPicker id={pickerId}
                              name={"codeCouleur"}
                              label={"Code couleur"}
                              value={categorie.codeCouleur}
-                             state={categorie}
-                             setState={setCategorie}/>
+                             dispatch={(e) => dispatch(setCodeCouleur(e))}/>
 
-                <BoutonNavigation id={"bouton-ajouter-categorie"}
-                                  contenu={"Ajouter"}
-                                  className={"w-fit "}
-                                  onclick={ajouterCategorie}
-                                  imgSrc={"plus_dark"}
-                                  imgFormat={"16"}/>
+                <BoutonSubmit id={"bouton-ajouter-categorie"}
+                              contenu={"Ajouter"}
+                              className={"w-fit "}
+                              onclick={ajouterCategorie}
+                              imgSrc={"plus_dark"}
+                              imgFormat={"16"}/>
             </section>
         </>
 

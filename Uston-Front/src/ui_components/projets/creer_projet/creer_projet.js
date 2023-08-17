@@ -1,61 +1,59 @@
-import React, {useState} from "react";
+import React from "react";
 import NavigationCreerProjet from "./navigation_creer_projet";
 import TitreFormulaireCreerProjet from "./titre_formulaire_creer_projet";
-import FormulaireAjouterTechnologie from "./formulaire_ajouter_technologie";
 import InputText from "../../divers/inputs/input_text";
 import InputTextArea from "../../divers/inputs/input_textarea";
-import BoutonNavigation from "../../divers/bouton_navigation";
-import {handle} from "../../../controllers/assets/form_controller";
+import BoutonNavigation from "../../divers/boutons/bouton_navigation";
+import {useDispatch, useSelector} from "react-redux";
+import {selectProjet, selectTechnologies} from "../../../redux/selectors";
+import {removeCategorieProjet, setProjet, setProjetPropriete} from "../../../redux/projets/projet_slicer";
 import FormulaireAjouterCategorie from "./formulaire_ajouter_categorie";
+import FormulaireAjouterTechnologie from "./formulaire_ajouter_technologie";
+import ListeTags from "../../divers/tags/liste_tags";
+import {useNavigate} from "react-router";
+import {removeTechnologieProjet} from "../../../redux/technologies/technologies_slicer";
 
 export default function CreerProjet(){
-    const [projet, setProjet] = useState({
-        id: 0,
-        titre: "",
-        description: "",
-        besoin: "",
-        categories : [],
-        technologies: []
-    });
+    const projet = useSelector(selectProjet)
+    const technologies = useSelector(selectTechnologies)
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
 
-    function submitProjet(){
-        // Appel à l'API create_projet
-        fetch(process.env.REACT_APP_URL_API + "/projets", {
-            method: "POST",
-            body: JSON.stringify(projet)
-        }).then((res) => {
-            return res.json();
-        }).then((res) => {
-            setProjet(res);
+    async function createProjet() {
+        if (projet.titre !== "" && projet.description !== ""  && projet.besoin !== ""){
+            const resultProjet = await fetch(process.env.REACT_APP_URL_API + "/projets" , {
+                method: "POST",
+                body: JSON.stringify(projet)
+            }) .then(async (res) => {
+                const resultat = await res.json()
+                dispatch(setProjet(resultat))
+                return resultat
+            })
 
-            // Appel à l'Api create_categorie pour chaque categorie créée
-            // categories.map((categorie) => {
-            //     fetch(adresse_api + "/categories", {
-            //         method: "POST",
-            //         body: JSON.stringify(
-            //             {...categorie, projet_id: res.id}
-            //         )
-            //     })
-            //     // TODO Notifier le résultat grâce au retour de l'API create_categorie
-            // })
-            //
-            // selectedTechnologies.map((technologie) => {
-            //     fetch(adresse_api + "/projet-add-technologie", {
-            //         method: "POST",
-            //         body: JSON.stringify(
-            //             {
-            //                 technologie_id: technologie,
-            //                 projet_id: res.id
-            //             }
-            //         )
-            //     }).then((res) => {
-            //         return res.json()
-            //     }).then((res) => {
-            //         console.log("Technologies")
-            //         console.log(res)
-            //     })
-            // })
-        })
+            console.log("Appel Projet", resultProjet)
+
+            if (resultProjet){
+                const body = {
+                    projet_id: resultProjet.id,
+                    technologies_id: []
+                }
+                technologies.map((tech) => {
+                    body.technologies_id.push(tech.id)
+                })
+
+                const resultTechnologies = await fetch(process.env.REACT_APP_URL_API + "/projet-add-technologies", {
+                    method: "POST",
+                    body: JSON.stringify(body)
+                }).then(async (res) => {
+                    return await res.json()
+                })
+
+                console.log("Appel Tech", resultTechnologies)
+
+            }
+
+            navigate("/index-projets")
+        }
     }
 
     return (
@@ -63,6 +61,7 @@ export default function CreerProjet(){
             <NavigationCreerProjet />
 
             <div className="flex">
+
                 <section id={"section-creer-projet"}
                          className={"pl-5 w-1/2 border-r border-darkgray-500 "}>
                     <TitreFormulaireCreerProjet titre={"Créez votre projet"}
@@ -72,46 +71,47 @@ export default function CreerProjet(){
                          className={"p-3 pr-10"}>
                         <InputText libelle={"Titre"}
                                    name={"titre"}
-                                   onChange={(e) => handle(e, projet, setProjet)}/>
+                                   value={projet.titre}
+                                   onChange={(e) => dispatch(setProjetPropriete(e))}/>
                         <InputText libelle={"Description"}
                                    name={"description"}
-                                   onChange={(e) => handle(e, projet, setProjet)}/>
+                                   value={projet.description}
+                                   onChange={(e) => dispatch(setProjetPropriete(e))}/>
                         <InputTextArea libelle={"Besoin"}
                                        name={"besoin"}
+                                       value={projet.besoin}
                                        rows={6}
-                                       onChange={(e) => handle(e, projet, setProjet)}/>
-                        <InputText libelle={"Categories"}
+                                       onChange={(e) => dispatch(setProjetPropriete(e))}/>
+                        <ListeTags libelle={"Categories"}
                                    name={"categorie"}
-                                   onChange={(e) => handle(e, projet, setProjet)}/>
-                        <InputText libelle={"Technologies"}
-                                   name={"technologies"}
-                                   onChange={(e) => handle(e, projet, setProjet)}/>
+                                   type={"categorie"}
+                                   objets={projet.categories}
+                                   action={removeCategorieProjet}/>
+                        <ListeTags libelle={"Technologies"}
+                                   name={"technologie"}
+                                   type={"technologie"}
+                                   objets={technologies}
+                                   action={removeTechnologieProjet}/>
                     </div>
 
                     <div className={"flex justify-center mt-2"}>
                         <BoutonNavigation id={"bouton-valider-projet"}
                                           contenu={"Valider"}
                                           className={"w-fit border-b border-darkgray-500"}
-                                          onclick={submitProjet}
+                                          onclick={() => createProjet()}
                                           imgSrc={"plus_dark"}
                                           imgFormat={"16"}/>
                     </div>
 
-                    <BoutonNavigation id={"bouton-LOG-projet"}
-                                      contenu={"LOG"}
-                                      className={"w-fit border-b border-darkgray-500"}
-                                      onclick={() => {console.log(projet)}}/>
-
                 </section>
+
                 <section id="section-relation-projet"
                          className="w-1/2">
 
-                    <FormulaireAjouterCategorie key={2}
-                                                setProjet={setProjet}/>
+                    <FormulaireAjouterCategorie/>
 
-                    <FormulaireAjouterTechnologie key={3}
-                                                  projet={projet}
-                                                  setProjet={setProjet}/>
+                    <FormulaireAjouterTechnologie/>
+
                 </section>
             </div>
         </div>

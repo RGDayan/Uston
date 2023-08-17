@@ -6,6 +6,7 @@ use App\Entity\Projet;
 use App\Repository\ProjetRepository;
 use App\Repository\TechnologieRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use JetBrains\PhpStorm\NoReturn;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -37,10 +38,11 @@ class ProjetController extends AbstractController
      * Créer un projet en BDD
      */
     #[Route('/projets', name: 'projet_create', methods: 'POST')]
-    public function create(Request $request, SerializerInterface $serializer, EntityManagerInterface $em): JsonResponse
+    public function create(Request $request, SerializerInterface $serializer, EntityManagerInterface $em, TechnologieRepository $technologyRepository): JsonResponse
     {
         $projet = $serializer->deserialize($request->getContent(), Projet::class, 'json');
         $projet->setCreatedAt(new \DateTimeImmutable());
+
         $em->persist($projet);
         $em->flush();
 
@@ -64,6 +66,27 @@ class ProjetController extends AbstractController
         $em->persist($projet);
         $em->flush();
 
+        return $this->json($projet, 200, [], ['groups' => 'projet:show']);
+    }
+
+    /**
+     * Ajoute la relation d'une list de Technologies avec un Projet
+     */
+    #[NoReturn] #[Route('/projet-add-technologies', name: 'projet_add_technologies', methods: 'POST')]
+    public function addTechnologies(Request $request, ProjetRepository $projetRepository, TechnologieRepository $technologieRepository, EntityManagerInterface $em): JsonResponse
+    {
+        $content = $request->toArray();
+        $projet = $projetRepository
+            ->find($content['projet_id']);
+        foreach ($content['technologies_id'] as $techId){
+                $projet->addTechnology(
+                    $technologieRepository
+                        ->find($techId)
+                );
+        }
+
+        $em->persist($projet);
+        $em->flush();
         return $this->json($projet, 200, [], ['groups' => 'projet:show']);
     }
 

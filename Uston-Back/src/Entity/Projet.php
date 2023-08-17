@@ -53,7 +53,7 @@ class Projet
         'recit:indexFromProjet'])]
     private ?string $description = null;
 
-    #[ORM\OneToMany(mappedBy: 'Projet', targetEntity: Categorie::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'Projet', targetEntity: Categorie::class, cascade: ['persist'], orphanRemoval: true)]
     #[Groups(["projet:show",
         "recit:show",
         "suggestion:show"])]

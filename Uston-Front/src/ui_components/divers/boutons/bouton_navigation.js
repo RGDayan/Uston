@@ -1,5 +1,5 @@
 import React from "react";
-import GetImgByFormat from "../../controllers/assets/imgcontroller";
+import GetImgByFormat from "../../../controllers/assets/imgcontroller";
 
 export default function BoutonNavigation({id, onclick, contenu, imgSrc = "", imgFormat, alt, className}) {
     return (

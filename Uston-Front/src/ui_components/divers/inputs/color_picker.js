@@ -1,19 +1,7 @@
-import React, {useState} from "react";
+import React from "react";
 import {ChromePicker} from "react-color";
 
-export default function ColorPicker({id, name, label, value, position, state, setState}){
-    const [currentColor, setCurrentColor] = useState(value);
-
-    function handleColorChange(color){
-        setCurrentColor(color.hex);
-        let input = document.getElementById("input-"+id);
-        input.value = color.hex;
-        setState(
-            {...state, codeCouleur: color.hex}
-        );
-        console.log(state)
-    }
-
+export default function ColorPicker({id, name, label, value, position, dispatch}){
     function toggleColorPicker(){
         let picker = document.getElementById("color-picker-" + id);
         picker.classList.toggle("hidden");
@@ -38,8 +26,8 @@ export default function ColorPicker({id, name, label, value, position, state, se
             <div className="relative cursor-pointer">
                 <div className={"w-12 h-12 mt-2 ml-2  rounded-full"}
                      style={{
-                         backgroundColor : currentColor,
-                         boxShadow: "0px 3px 10px " + currentColor
+                         backgroundColor : value,
+                         boxShadow: "0px 3px 10px " + value
                      }}
                      onClick={toggleColorPicker}/>
                 <div id={"color-picker-" + id}
@@ -47,8 +35,12 @@ export default function ColorPicker({id, name, label, value, position, state, se
                          "absolute " +
                          position + " " +
                          "hidden ml-2"}>
-                    <ChromePicker color={currentColor}
-                                  onChangeComplete={handleColorChange}
+                    <ChromePicker color={value}
+                                  onChangeComplete={(e) => {
+                                      let input = document.getElementById("input-"+id);
+                                      input.value = e.hex;
+                                      dispatch(e.hex);
+                                  }}
                                   disableAlpha={true}/>
                 </div>
             </div>

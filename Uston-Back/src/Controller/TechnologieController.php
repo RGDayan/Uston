@@ -33,12 +33,6 @@ class TechnologieController extends AbstractController
     {
         $technologie = $serializer->deserialize($request->getContent(), Technologie::class, 'json');
 
-        $content = $request->toArray();
-        $projet_id = $content['projet_id'];
-        if ($projet_id != 0 && $projet_id != null){
-            $technologie->addProjet($projetRepository->find($content['projet_id']));
-        }
-
         $em->persist($technologie);
         $em->flush();
 
