@@ -1,7 +1,6 @@
 import './App.css';
 import React from 'react';
 import PagePrincipale from "./ui_components/accueil/page_principale";
-import UstonTitre from "./ui_components/accueil/uston_titre";
 
 /**
  * Classe App : Construit la page web et contient les routes de redirections
@@ -15,7 +14,6 @@ function App() {
             "h-full " +
             "text-white " +
             "bg-darkgray-800"}>
-            <UstonTitre/>
             <PagePrincipale/>
         </div>
     );

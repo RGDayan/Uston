@@ -1,13 +1,11 @@
 import React from "react";
+import LabelInput from "../labels/label_input";
 
 export default function InputText({libelle, name, value, className, onChange}){
 
     return (
         <div className={"flex flex-col"}>
-            <label id={"label-" + name}
-                   className={"text-sm"}>
-                {libelle}
-            </label>
+            <LabelInput libelle={libelle} name={name} />
             <input name={name}
                    type={"text"}
                    value={value}

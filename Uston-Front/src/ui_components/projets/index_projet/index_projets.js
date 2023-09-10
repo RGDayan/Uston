@@ -1,10 +1,16 @@
 import React from "react";
-import {NavLink} from "react-router-dom";
 import NavigationIndexProjets from "./navigation_index_projets";
 import {useQuery} from "react-query";
 import Loader from "../../divers/loaders/loader";
+import BoutonNavigation from "../../divers/navigations/bouton_navigation";
+import {useDispatch} from "react-redux";
+import {setProjetId} from "../../../redux/navigation/navigation_slicer";
+import {useNavigate} from "react-router";
 
 export default function IndexProjets(){
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
     const {data} = useQuery("projet_index", async() => {
         return await fetch(process.env.REACT_APP_URL_API + "/projets")
             .then(async (res) => await res.json())
@@ -25,8 +31,12 @@ export default function IndexProjets(){
                         {
                             data.map((projet) => {
                                 return (
-                                    <NavLink key={projet.id}
-                                             to={"/index-projets/" + projet.id}
+                                    <BoutonNavigation key={projet.id}
+                                                      id={"bouton-afficher-projet-" + projet.id}
+                                                      onclick={() => {
+                                                          dispatch(setProjetId(projet.id))
+                                                          navigate("/projet/resume")
+                                                      }}
                                              className={"relative " +
                                                  "flex flex-col " +
                                                  "min-h-32 w-1/4 min-w-96 " +
@@ -45,7 +55,7 @@ export default function IndexProjets(){
                                            className={"absolute top-0 right-0 p-4 text-darkgray-400 text-right text-xs"}>
                                             ID : n°{ projet.id}
                                         </p>
-                                    </NavLink>
+                                    </BoutonNavigation>
                                 )
                             })
                         }

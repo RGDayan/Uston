@@ -1,7 +1,7 @@
 import React from "react";
 import InputText from "../../divers/inputs/input_text";
 import ColorPicker from "../../divers/inputs/color_picker";
-import TitreFormulaireCreerProjet from "./titre_formulaire_creer_projet";
+import TitreFormulaire from "./titre_formulaire";
 import {useDispatch, useSelector} from "react-redux";
 import {resetCategorie, setCategorie, setCodeCouleur} from "../../../redux/categories/categorie_slicer";
 import {selectCategorie} from "../../../redux/selectors";
@@ -24,9 +24,9 @@ export default function FormulaireAjouterCategorie(){
 
     return (
         <>
-            <TitreFormulaireCreerProjet titre={"Créez vos categories"}
-                                        messageInfo={"Les catégories sont les fonctionnalités de votre projet. " +
-                                            "Vous pourrez les utiliser en tant que Tag"}/>
+            <TitreFormulaire titre={"Créez vos categories"}
+                             messageInfo={"Les catégories sont les fonctionnalités de votre projet. " +
+                                 "Vous pourrez les utiliser en tant que Tag"}/>
             <section id={"formulaire-categories"}
                      className={"p-3"}>
                 <InputText name={"libelle"}
@@ -36,7 +36,7 @@ export default function FormulaireAjouterCategorie(){
                            onChange={(e) => dispatch(setCategorie(e))}/>
                 <ColorPicker id={pickerId}
                              name={"codeCouleur"}
-                             label={"Code couleur"}
+                             libelle={"Code couleur"}
                              value={categorie.codeCouleur}
                              dispatch={(e) => dispatch(setCodeCouleur(e))}/>
 

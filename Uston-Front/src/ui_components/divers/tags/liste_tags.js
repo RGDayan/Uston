@@ -1,14 +1,12 @@
 import React from "react";
 import Tag from "./tag";
+import LabelInput from "../labels/label_input";
 
 export default function ListeTags({libelle, name, type, objets, action}){
     return (
         <div className="flex flex-col">
-            <label id={"label-" + name}
-                   className={"text-sm"}>
-                {libelle}
-            </label>
-            <ul className={"flex flex-wrap " +
+            <LabelInput libelle={libelle} name={name} />
+            <div className={"flex flex-wrap " +
                 "w-fit min-w-64 h-fit min-h-8 " +
                 "py-1 " +
                 "bg-darkgray-700"}>
@@ -17,10 +15,11 @@ export default function ListeTags({libelle, name, type, objets, action}){
                         return <Tag key={type + "-" + objet.libelle}
                                     libelle={objet.libelle}
                                     color={objet.codeCouleur}
-                                    action={action(objet.libelle)}/>
+                                    action={action ? action(objet.libelle) : null}
+                                    lienDoc={objet.lienDoc? objet.lienDoc: ""}/>
                     })
                 }
-            </ul>
+            </div>
         </div>
     )
 }

@@ -45,6 +45,9 @@ import back_arrow16 from "../../resources/back_arrow/back_arrow16.png";
 import forward_arrow64 from "../../resources/forward_arrow/forward_arrow64.png";
 import forward_arrow32 from "../../resources/forward_arrow/forward_arrow32.png";
 import forward_arrow16 from "../../resources/forward_arrow/forward_arrow16.png";
+import arrow_right64 from "../../resources/arrow-right/arrow_right64.png";
+import arrow_right32 from "../../resources/arrow-right/arrow_right32.png";
+import arrow_right16 from "../../resources/arrow-right/arrow_right16.png";
 import home_dark16 from "../../resources/home/home_dark16.png";
 import home_dark32 from "../../resources/home/home_dark32.png";
 import home_dark64 from "../../resources/home/home_dark64.png";
@@ -99,6 +102,9 @@ const images = {
     forward_arrow64,
     forward_arrow32,
     forward_arrow16,
+    arrow_right64,
+    arrow_right32,
+    arrow_right16,
     home_dark16,
     home_dark32,
     home_dark64,

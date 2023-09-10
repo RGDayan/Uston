@@ -1,12 +1,10 @@
 import React from "react";
+import LabelInput from "../labels/label_input";
 
 export default function InputTextArea({libelle, name, value, onChange, rows=3}){
     return (
         <div className={"flex flex-col"}>
-            <label id={"label-" + name}
-                   className={"text-sm"}>
-                {libelle}
-            </label>
+            <LabelInput libelle={libelle} name={name} />
             <textarea name={name}
                       rows={rows}
                       value={value}

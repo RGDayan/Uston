@@ -1,7 +1,8 @@
 import React from "react";
 import {ChromePicker} from "react-color";
+import LabelInput from "../labels/label_input";
 
-export default function ColorPicker({id, name, label, value, position, dispatch}){
+export default function ColorPicker({id, name, libelle, value, position, dispatch}){
     function toggleColorPicker(){
         let picker = document.getElementById("color-picker-" + id);
         picker.classList.toggle("hidden");
@@ -11,10 +12,7 @@ export default function ColorPicker({id, name, label, value, position, dispatch}
         <div className={"flex"}>
 
             <div className="flex flex-col">
-                <label id={"label-" + name}
-                       className={"text-sm"}>
-                    {label}
-                </label>
+                <LabelInput libelle={libelle} name={name} />
                 <input id={"input-"+id}
                        type={"text"}
                        name={name}

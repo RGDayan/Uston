@@ -1,7 +1,7 @@
 import React, {useState} from "react";
-import TitreFormulaireCreerProjet from "./titre_formulaire_creer_projet";
+import TitreFormulaire from "./titre_formulaire";
 import ColorPicker from "../../divers/inputs/color_picker";
-import BoutonNavigation from "../../divers/boutons/bouton_navigation";
+import BoutonNavigation from "../../divers/navigations/bouton_navigation";
 import {useDispatch, useSelector} from "react-redux";
 import {selectTechnologie} from "../../../redux/selectors";
 import {resetTechnologie, setCodeCouleur, setTechnologie} from "../../../redux/technologies/technologie_slicer";
@@ -50,8 +50,8 @@ export default function FormulaireCreerTechnologie({setReload}){
                                       imgFormat={"16"}/>
                 </div>
                 :<section id={"formulaire-creer-technologie"}>
-                        <TitreFormulaireCreerProjet titre={"Créer une nouvelle technologie"}
-                                                    messageInfo={"Ajoutez une nouvelle technologie lorsque celle-ci n'existe pas dans la liste."}/>
+                        <TitreFormulaire titre={"Créer une nouvelle technologie"}
+                                         messageInfo={"Ajoutez une nouvelle technologie lorsque celle-ci n'existe pas dans la liste."}/>
                         <div className="ml-3">
                             <InputText name={"libelle"}
                                        libelle={"Libellé"}
@@ -65,7 +65,7 @@ export default function FormulaireCreerTechnologie({setReload}){
                                        onChange={(e) => {dispatch(setTechnologie(e))}}/>
                             <ColorPicker id={pickerId}
                                          name={"codeCouleur"}
-                                         label={"Code couleur"}
+                                         libelle={"Code couleur"}
                                          value={technologie.codeCouleur}
                                          dispatch={(e) => dispatch(setCodeCouleur(e))}/>
                         </div>

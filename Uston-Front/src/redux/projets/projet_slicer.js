@@ -28,6 +28,12 @@ const { actions, reducer } = createSlice({
         },
         setProjet: (draft, action) => {
             draft.id = action.payload.id
+            draft.titre = action.payload.titre
+            draft.description = action.payload.description
+            draft.besoin = action.payload.besoin
+            draft.categories = action.payload.categories
+            draft.technologies = action.payload.technologies
+            draft.historiqueProjets = action.payload.historiqueProjets
         },
         resetProjet: (draft) => {
             draft.id = 0

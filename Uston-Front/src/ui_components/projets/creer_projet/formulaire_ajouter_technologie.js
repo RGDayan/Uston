@@ -1,13 +1,14 @@
 // noinspection EqualityComparisonWithCoercionJS
 
 import React, {useEffect, useState} from "react";
-import BoutonNavigation from "../../divers/boutons/bouton_navigation";
+import BoutonNavigation from "../../divers/navigations/bouton_navigation";
 import FormulaireCreerTechnologie from "./formulaire_creer_technologie";
-import TitreFormulaireCreerProjet from "./titre_formulaire_creer_projet";
+import TitreFormulaire from "./titre_formulaire";
 import {useMutation} from "react-query";
 import {useDispatch, useSelector} from "react-redux";
 import {selectTechnologies} from "../../../redux/selectors";
 import {ajouterTechnologieProjet} from "../../../redux/technologies/technologies_slicer";
+import LabelInput from "../../divers/labels/label_input";
 
 export default function FormulaireAjouterTechnologie(){
     const technologies = useSelector(selectTechnologies);
@@ -43,16 +44,16 @@ export default function FormulaireAjouterTechnologie(){
 
     return (
         <>
-            <TitreFormulaireCreerProjet titre={"Ajoutez vos technologies"}
-                                        messageInfo={"Les technologies sont celles utilisées dans votre projet. " +
-                                            "Vous pourrez les utiliser en tant que Tag"}/>
+            <TitreFormulaire titre={"Ajoutez vos technologies"}
+                             messageInfo={"Les technologies sont celles utilisées dans votre projet. " +
+                                "Vous pourrez les utiliser en tant que Tag"}/>
 
             <section id={"formulaire-technologies"}
                      className={"pl-3 w-full"}>
                     {
                         technologiesBD?.length !== 0 ?
                             <div className={"w-1/2"}>
-                                <label className="text-sm">Technologies</label>
+                                <LabelInput libelle={"Technologies"} name={"technologies"} />
                                 <select id="select-technologies"
                                         size="5"
                                         name={"technologie_id"}

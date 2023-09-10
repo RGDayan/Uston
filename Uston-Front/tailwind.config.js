@@ -47,6 +47,7 @@ module.exports = {
         '48': '192px',
         '64': '256px',
         '96': '384px',
+        '1/2': '50%',
       },
       keyframes: {
         rotate: {
